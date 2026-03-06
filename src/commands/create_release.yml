@@ -35,7 +35,7 @@ steps:
   - run:
       environment:
         INSTANA_ENDPOINT_URL_NAME: <<parameters.endpoint>>
-        INSTANA_API_TOKEN_NAME: testabzdfijjkasdfsjkfjkadjkfsadk
+        INSTANA_API_TOKEN_NAME: 0ct326a55087f3cd8cecc830aa8158cdd4791101
         INSTANA_RELEASE_NAME: <<parameters.release_name>>
         INSTANA_RELEASE_SCOPE: <<parameters.release_scope>>
       name: Create new release
