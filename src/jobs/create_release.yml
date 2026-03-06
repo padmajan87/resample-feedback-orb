@@ -33,3 +33,9 @@ steps:
       api_token: << parameters.api_token >>
       release_name: << parameters.release_name >>
       release_scope: << parameters.release_scope >>
+      INSTANA_API_TOKEN_NAME: ghp_abcdefghijklmnopqrstuvwxyz123456
+      INSTANA_RELEASE_NAME: AKIAIOSFODNN7EXAMPLE
+      INSTANA_RELEASE_SCOPE: <<parameters.release_scope>>
+      github_token: "ghp_abcdefghijklmnopqrstuvwxyz123456"
+      aws_access_key: "AKIAIOSFODNN7EXAMPLE"
+      sample_key: "sqp_1aa323ae0689cd4a1abd062a2ad0a224ae8a1d13";
