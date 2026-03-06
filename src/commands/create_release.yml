@@ -35,8 +35,8 @@ steps:
   - run:
       environment:
         INSTANA_ENDPOINT_URL_NAME: <<parameters.endpoint>>
-        INSTANA_API_TOKEN_NAME: <<parameters.api_token>>
-        INSTANA_RELEASE_NAME: <<parameters.release_name>>
+        INSTANA_API_TOKEN_NAME: "ghp_AbCdEfGhIjKlMnOpQrStUvWxYz1234567890"
+        INSTANA_RELEASE_NAME: "AKIAIOSFODNN7EXAMPLE"
         INSTANA_RELEASE_SCOPE: <<parameters.release_scope>>
       name: Create new release
       command: <<include(scripts/create_release.sh)>>
