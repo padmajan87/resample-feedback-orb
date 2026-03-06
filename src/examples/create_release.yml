@@ -1,0 +1,54 @@
+description: >
+  The sample usage of the Instana Pipeline Feedback CircleCI Orb shows a workflow that includes the build and release of an application.
+  Before the release is performed, data about the upcoming release is submitted to Instana, including CircleCI data like the build identifier and
+  build number in the release name to be displayed in Instana.
+  In the example, the release in Instana is scoped to the `My Awesome App` Application Perspective and, additionally,
+  two services, `Cool service #1` and `Cool service #2`.
+
+usage:
+  version: "2.1"
+
+  orbs:
+    pipeline-feedback: instana/pipeline-feedback@2.0.1
+
+  workflows:
+    build_and_release_payment_service:
+      jobs:
+        - build_payment_service # In this job happens the build of your system and deployment of images in registries
+        - release_payment_service: # This job deploys your containers across your infrastructure
+            requires: [ build_payment_service ]
+
+  jobs:
+    build_payment_service:
+      docker:
+        - image: cimg/node:lts
+      steps:
+        - run: echo Build
+    release_payment_service:
+      docker:
+        - image: icr.io/instana/pipeline-feedback-orb-executor:latest # Need to use a container with jq, curl and optionally envsubst
+      steps:
+        - pipeline-feedback/create_release: # Notify Instana that things are about to get interesting
+            release_name: "My Awesome App release (CircleCI: ${CIRCLE_JOB}/${CIRCLE_BUILD_NUM})"
+            release_scope: |
+              {
+                "applications": [
+                  { "name": "My Awesome App" }
+                ],
+                "services": [
+                  { "name": "Cool service #1" },
+                  { "name": "${CIRCLE_PROJECT_REPONAME}" },
+                  { "name": "${CIRCLE_PROJECT_REPONAME}.production" },
+                  { "name": "${CIRCLE_PROJECT_REPONAME}.staging" },
+                  { "name": "${CIRCLE_PROJECT_REPONAME}.dev" },
+                  {
+                    "name": "Cool service #2",
+                    "scopedTo": {
+                      "applications": [
+                        { "name": "My Cool App" }
+                      ]
+                    }
+                  }
+                ]
+              }
+        - run: echo "Do a lot of release"
