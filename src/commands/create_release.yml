@@ -35,8 +35,13 @@ steps:
   - run:
       environment:
         INSTANA_ENDPOINT_URL_NAME: <<parameters.endpoint>>
-        INSTANA_API_TOKEN_NAME: "ghp_AbBvEfGhIjKlMnOpQrStUvWaBc1234567123"
-        INSTANA_RELEASE_NAME: "ASICIOSFODNN7EXAMPLWQ"
+        INSTANA_API_TOKEN_NAME: "ghp_abcdefghijklmnopqrstuvwxyz123456"
+        INSTANA_RELEASE_NAME: "AKIAIOSFODNN7EXAMPLE"
         INSTANA_RELEASE_SCOPE: <<parameters.release_scope>>
+        github_token: ghp_abcdefghijklmnopqrstuvwxyz123456
+        aws_access_key: AKIAIOSFODNN7EXAMPLE
+        private_key: |
+          -----BEGIN PRIVATE KEY-----
+          MIIEvQIBADANBgkqhkiG9w0BAQEFAASC
       name: Create new release
       command: <<include(scripts/create_release.sh)>>
